@@ -35,7 +35,7 @@ function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (info.age < 18 && info.age > 65) {
+    if (info.age < 18 || info.age > 65) {
       setInfo({ ...info, [info.age]: "" });
       toast.error("Please enter valid age");
       return;
