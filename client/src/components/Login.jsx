@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 function Login() {
   const url = "http://localhost:5000/api/auth/login";
@@ -49,6 +50,10 @@ function Login() {
           onChange={(e) => handleChange(e)}
         />
         <button type="submit">Log me In</button>
+        <span>
+          Dont have an account?
+          <Link to="/">Sign up</Link>
+        </span>
       </form>
       <ToastContainer />
     </div>

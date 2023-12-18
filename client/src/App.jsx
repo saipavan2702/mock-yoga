@@ -57,7 +57,7 @@ function App() {
       <button onClick={handleBatchUpdate}>Update Batch</button> */}
       <div>
         <div>
-          Payment Status: {paymentStatus === null ? "Not Paid" : "Paid"}{" "}
+          Payment Status: {paymentStatus === false ? "Not Paid" : "Paid"}{" "}
         </div>
         {paymentStatus === null ? (
           <span>Fee Pay now</span>
