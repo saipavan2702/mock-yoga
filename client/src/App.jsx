@@ -45,7 +45,7 @@ function App() {
       paymentStatus: true,
     });
     console.log(user);
-    setPaymentStatus(user.data.paymentStatus);
+    setPaymentStatus(true);
   };
 
   const handleLogOut = async () => {
