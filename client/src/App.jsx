@@ -14,6 +14,7 @@ function App() {
     margin: "0.2rem",
   };
   const [selectedBatch, setSelectedBatch] = useState("");
+
   useEffect(() => {
     const getCurrentUser = async () => {
       if (!localStorage.getItem("user-data")) {
@@ -33,18 +34,18 @@ function App() {
       setPaymentStatus(user.data.paymentStatus);
     };
     getPaymentStatus();
-  }, [currentUser]);
+  });
 
   const handlePaymentUpdate = async (event) => {
     event.preventDefault();
-    if (currentUser.paymentStatus === true) {
+    if (currentUser.paymentStatus === true || paymentStatus === true) {
       return;
     }
     const user = await axios.patch("http://localhost:5000/api/auth/update", {
       email: currentUser.email,
       paymentStatus: true,
     });
-    console.log(user);
+    console.log(user.data);
     setPaymentStatus(true);
   };
 

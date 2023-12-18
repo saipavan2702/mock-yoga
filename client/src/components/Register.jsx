@@ -51,7 +51,7 @@ function Register() {
       paymentStatus: false,
     });
 
-    if (user.data.status === false) {
+    if (user.data.status) {
       toast.error("User already exists");
     }
 
