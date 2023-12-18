@@ -9,7 +9,7 @@ import {
 const router = Router();
 router.post("/register", registerRoute);
 router.post("/login", loginRoute);
-router.put("/update", updateRoute);
+router.patch("/update", updateRoute);
 router.get("/status/:id", statusRoute);
 
 export const allRoutes = router;
