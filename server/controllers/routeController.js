@@ -56,8 +56,8 @@ const updateRoute = async (req, res) => {
 
 const statusRoute = async (req, res, next) => {
   try {
-    const { email } = req.body;
-    const user = await Data.findOne({ email });
+    const { id } = req.params.id;
+    const user = await Data.findOne({ id });
 
     return res.json(user);
   } catch (ex) {

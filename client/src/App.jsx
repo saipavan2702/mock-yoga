@@ -26,12 +26,12 @@ function App() {
 
   useEffect(() => {
     const getPaymentStatus = async () => {
-      const user = await axios.get("http://localhost:5000/api/auth/status", {
-        email: currentUser.email,
-      });
-      console.log(currentUser.email);
+      const user = await axios.get(
+        `http://localhost:5000/api/auth/status/:${currentUser._id}`
+      );
+
       console.log(user);
-      // setPaymentStatus(user.data.paymentStatus);
+      setPaymentStatus(user.data.paymentStatus);
     };
     getPaymentStatus();
   }, [currentUser]);
