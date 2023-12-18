@@ -42,17 +42,22 @@ const loginRoute = async (req, res) => {
   return res.json(user);
 };
 
-const updateRoute = async (req, res) => {
-  const { email, paymentStatus } = req.body;
+const updateRoute = async (req, res, next) => {
+  try {
+    const { email, paymentStatus } = req.body;
 
-  const updatedUser = await Data.updateOne(
-    { email: email },
-    {
-      paymentStatus: paymentStatus,
-    }
-  );
+    const updatedUser = await Data.updateOne(
+      { email: email },
+      {
+        paymentStatus: paymentStatus,
+      }
+    );
 
-  return res.json(updatedUser);
+    const user = await Data.findOne({ email: email });
+    return res.json(user);
+  } catch (ex) {
+    next(ex);
+  }
 };
 
 const statusRoute = async (req, res, next) => {
