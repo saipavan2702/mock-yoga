@@ -4,6 +4,7 @@ import { config } from "dotenv";
 import mongoose from "mongoose";
 import cron from "node-cron";
 import { allRoutes } from "./routes/allRoutes.js";
+import { resetPaymentStatus } from "./resetBatchStatus.js";
 
 config();
 const app = express();
@@ -22,7 +23,7 @@ cron.schedule("0 0 1 * *", async () => {
   console.log("Running the task to reset booked status.");
   try {
     await mongoose.connect(process.env.MONGO_URL);
-    require("./resetBatchStatus.js");
+    resetPaymentStatus();
   } catch (error) {
     console.error("Error running the task:", error.message);
   }

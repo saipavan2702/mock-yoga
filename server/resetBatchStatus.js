@@ -1,15 +1,10 @@
-import mongoose from "mongoose";
-import Data from "./models/db";
+import Data from "./models/db.js";
 
-const resetBookedStatus = async () => {
+export const resetPaymentStatus = async () => {
   try {
-    await Data.updateMany({}, { $set: { payMentStatus: false } });
+    await Data.updateMany({}, { paymentStatus: false });
     console.log("Booked status reset successfully.");
   } catch (error) {
     console.error("Error resetting booked status:", error.message);
-  } finally {
-    mongoose.connection.close();
   }
 };
-
-resetBookedStatus();

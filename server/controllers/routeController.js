@@ -70,4 +70,6 @@ const statusRoute = async (req, res, next) => {
     next(ex);
   }
 };
+
+const batchRoute = (req, res) => {};
 export { registerRoute, loginRoute, updateRoute, statusRoute };
