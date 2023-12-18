@@ -5,15 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
-  const [paymentStatus, setPaymentStatus] = useState(null);
+  const [paymentStatus, setPaymentStatus] = useState(false);
   const navigate = useNavigate();
 
-  // const inputProps = {
-  //   padding: "8px",
-  //   borderRadius: "10px",
-  //   margin: "0.2rem",
-  // };
-  // const [selectedBatch, setSelectedBatch] = useState("");
+  const inputProps = {
+    padding: "8px",
+    borderRadius: "10px",
+    margin: "0.2rem",
+  };
+  const [selectedBatch, setSelectedBatch] = useState("");
   useEffect(() => {
     const getCurrentUser = async () => {
       if (!localStorage.getItem("user-data")) {
@@ -30,11 +30,23 @@ function App() {
         `http://localhost:5000/api/auth/status/:${currentUser._id}`
       );
 
-      console.log(user);
       setPaymentStatus(user.data.paymentStatus);
     };
     getPaymentStatus();
   }, [currentUser]);
+
+  const handlePaymentUpdate = async (event) => {
+    event.preventDefault();
+    if (currentUser.paymentStatus === true) {
+      return;
+    }
+    const user = await axios.patch("http://localhost:5000/api/auth/update", {
+      email: currentUser.email,
+      paymentStatus: true,
+    });
+    console.log(user);
+    setPaymentStatus(user.data.paymentStatus);
+  };
 
   const handleLogOut = async () => {
     localStorage.removeItem("user-data");
@@ -43,7 +55,7 @@ function App() {
 
   return (
     <>
-      {/* <select
+      <select
         value={selectedBatch}
         onChange={(e) => setSelectedBatch(e.target.value)}
         style={inputProps}
@@ -54,15 +66,15 @@ function App() {
         <option value="8-9AM">8-9AM</option>
         <option value="5-6PM">5-6PM</option>
       </select>
-      <button onClick={handleBatchUpdate}>Update Batch</button> */}
+      <button>Update Batch</button>
       <div>
         <div>
           Payment Status: {paymentStatus === false ? "Not Paid" : "Paid"}{" "}
         </div>
-        {paymentStatus === null ? (
-          <span>Fee Pay now</span>
+        {paymentStatus === false ? (
+          <button onClick={handlePaymentUpdate}>Pay now</button>
         ) : (
-          <button>Pay Now</button>
+          <span>Fee Paid</span>
         )}
       </div>
       <div>

@@ -43,13 +43,14 @@ const loginRoute = async (req, res) => {
 };
 
 const updateRoute = async (req, res) => {
-  const { email, batch } = req.body;
+  const { email, paymentStatus } = req.body;
 
-  const user = await Data.findOne({ email });
-
-  const updatedUser = await Data.updateOne(user, {
-    batch: batch,
-  });
+  const updatedUser = await Data.updateOne(
+    { email: email },
+    {
+      paymentStatus: paymentStatus,
+    }
+  );
 
   return res.json(updatedUser);
 };
