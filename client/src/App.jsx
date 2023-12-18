@@ -23,7 +23,7 @@ function App() {
       setCurrentUser(await JSON.parse(localStorage.getItem("user-data")));
     };
     getCurrentUser();
-  });
+  }, [navigate]);
 
   useEffect(() => {
     const getPaymentStatus = async () => {
@@ -34,7 +34,7 @@ function App() {
       setPaymentStatus(user.data.paymentStatus);
     };
     getPaymentStatus();
-  });
+  }, [currentUser]);
 
   const handlePaymentUpdate = async (event) => {
     event.preventDefault();
