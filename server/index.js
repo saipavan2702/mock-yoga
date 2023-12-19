@@ -19,7 +19,7 @@ mongoose
 
 app.use("/api/auth", allRoutes);
 
-cron.schedule("0 0 1 * *", async () => {
+cron.schedule("*/1 * * * *", async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
     resetPaymentStatus();
