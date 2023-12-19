@@ -20,12 +20,11 @@ mongoose
 app.use("/api/auth", allRoutes);
 
 cron.schedule("0 0 1 * *", async () => {
-  console.log("Running the task to reset booked status.");
   try {
     await mongoose.connect(process.env.MONGO_URL);
     resetPaymentStatus();
   } catch (error) {
-    console.error("Error running the task:", error.message);
+    console.error(error.message);
   }
 });
 
