@@ -1,9 +1,18 @@
 import Data from "../models/db.js";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 const registerRoute = async (req, res) => {
-  const { firstname, lastname, email, password, age, batch, paymentStatus } =
-    req.body;
+  const {
+    firstname,
+    lastname,
+    email,
+    password,
+    age,
+    batch,
+    updatedDate,
+    paymentStatus,
+  } = req.body;
   const user = await Data.findOne({ email });
 
   if (user) {
@@ -18,6 +27,7 @@ const registerRoute = async (req, res) => {
     password: hashedPassword,
     age: age,
     batch: batch,
+    updatedDate: updatedDate,
     paymentStatus: paymentStatus,
   });
 
@@ -62,14 +72,13 @@ const updateRoute = async (req, res, next) => {
 
 const statusRoute = async (req, res, next) => {
   try {
-    const { id } = req.params.id;
-    const user = await Data.findOne({ id });
-
+    const user = await Data.findById(req.params.id);
+    console.log(user);
     return res.json(user);
   } catch (ex) {
     next(ex);
   }
 };
 
-const batchRoute = (req, res) => {};
-export { registerRoute, loginRoute, updateRoute, statusRoute };
+const batchRoute = async (req, res) => {};
+export { registerRoute, loginRoute, updateRoute, statusRoute, batchRoute };

@@ -27,6 +27,10 @@ const dataSchema = new Schema(
       type: String,
       required: true,
     },
+    updatedDate: {
+      type: Date,
+      required: true,
+    },
     paymentStatus: {
       type: Boolean,
       required: true,

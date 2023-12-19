@@ -48,6 +48,7 @@ function Register() {
       password: info.password,
       age: info.age,
       batch: selectedBatch,
+      updatedDate: new Date(),
       paymentStatus: false,
     });
 
@@ -98,6 +99,7 @@ function Register() {
           style={inputProps}
           type="number"
           name="age"
+          value={info.age}
           placeholder="Enter your age"
           onChange={(event) => handleChange(event)}
         />
