@@ -73,7 +73,7 @@ const updateRoute = async (req, res, next) => {
 const statusRoute = async (req, res, next) => {
   try {
     const user = await Data.findById(req.params.id);
-    console.log(user);
+
     return res.json(user);
   } catch (ex) {
     next(ex);
@@ -82,8 +82,15 @@ const statusRoute = async (req, res, next) => {
 
 const batchRoute = async (req, res, next) => {
   try {
-    const user = await Data.findById(req.params.id);
     const { batch } = req.body;
+    const updatedBatch = await Data.updateOne(
+      { _id: req.params.id },
+      {
+        batch: batch,
+        updatedDate: new Date(),
+      }
+    );
+    return res.json({ msg: "Batch updated successfully", status: true });
   } catch (ex) {
     next(ex);
   }

@@ -12,6 +12,6 @@ router.post("/register", registerRoute);
 router.post("/login", loginRoute);
 router.patch("/update", updateRoute);
 router.get("/status/:id", statusRoute);
-router.patch("/batch", batchRoute);
+router.patch("/batch/:id", batchRoute);
 
 export const allRoutes = router;

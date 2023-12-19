@@ -72,19 +72,30 @@ function App() {
     let day = currentDate.getDate().toString();
 
     //
-    console.log(month, day, year);
+    console.log(new Date([month, day, year].join("-")));
 
     if (arr[1] === month) {
       toast.error("You cannot change the batch in same month");
       return;
     }
 
-    const updateBatch = await axios.patch(
-      `http://localhost:5000/api/auth/status/${currentUser._id}`,
-      {
-        batch: selectedBatch,
-      }
-    );
+    let now = new Date([year, month, day].join("-"));
+    let userUpdatedDate = new Date(userDate);
+    let diff = (now - userUpdatedDate) / (1000 * 60 * 60 * 24);
+
+    if (diff === 30) {
+      const updateBatch = await axios.patch(
+        `http://localhost:5000/api/auth/batch/${currentUser._id}`,
+        {
+          batch: selectedBatch,
+        }
+      );
+
+      toast.success(updateBatch.data.msg);
+      return;
+    } else {
+      toast.error("You cannot change the batch");
+    }
   };
 
   return (
