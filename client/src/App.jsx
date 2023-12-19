@@ -2,6 +2,8 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -60,16 +62,22 @@ function App() {
       `http://localhost:5000/api/auth/status/${currentUser._id}`
     );
 
-    console.log(user);
     let userDate = user.data.updatedDate.substr(0, 10);
     let arr = userDate.split("-");
-    let currentDate = new Date();
-    let currDate = currentDate.substr(0, 10).split("-");
 
-    if (arr[1] !== currDate[1]) {
-      console.log("Valid");
+    //
+    let currentDate = new Date();
+    let year = currentDate.getFullYear().toString();
+    let month = (currentDate.getMonth() + 1).toString();
+    let day = currentDate.getDate().toString();
+
+    //
+    console.log(month, day, year);
+
+    if (arr[1] === month) {
+      toast.error("You cannot change the batch in same month");
+      return;
     }
-    console.log(arr);
   };
 
   return (
@@ -99,6 +107,7 @@ function App() {
       <div>
         <button onClick={handleLogOut}>LogOut</button>
       </div>
+      <ToastContainer />
     </>
   );
 }
