@@ -78,6 +78,13 @@ function App() {
       toast.error("You cannot change the batch in same month");
       return;
     }
+
+    const updateBatch = await axios.patch(
+      `http://localhost:5000/api/auth/status/${currentUser._id}`,
+      {
+        batch: selectedBatch,
+      }
+    );
   };
 
   return (

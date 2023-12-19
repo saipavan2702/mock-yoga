@@ -80,5 +80,12 @@ const statusRoute = async (req, res, next) => {
   }
 };
 
-const batchRoute = async (req, res) => {};
+const batchRoute = async (req, res, next) => {
+  try {
+    const user = await Data.findById(req.params.id);
+    const { batch } = req.body;
+  } catch (ex) {
+    next(ex);
+  }
+};
 export { registerRoute, loginRoute, updateRoute, statusRoute, batchRoute };
